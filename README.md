@@ -33,6 +33,7 @@ Durante la ejecución de los scripts de construcción, el sistema se provee con 
 * **`update_banner.sh`**: Inyecta un colorido arte ASCII (Banner) en el archivo `/etc/motd` para darle una estética "Developer Edition" al momento de iniciar sesión.
 * **`run_qemu.sh`**: Un script de comodidad para encender la máquina virtual mapeando el puerto SSH al puerto `2222` de la máquina anfitriona.
 * **`build_bootable_image.sh`**: Transforma el entorno (que originalmente solo arranca en QEMU) en un disco crudo (`.img`) de 1.6GB con tabla de particiones MBR y gestor de arranque Syslinux, listo para VirtualBox o para flashear en un USB.
+* **`flash_usb.sh`**: Una utilidad interactiva y segura que detecta tus memorias USB conectadas y graba la imagen `.img` generada directamente al pendrive físico en un sistema Linux/WSL.
 
 ## Cómo Usarlo (Instrucciones de Construcción)
 
@@ -49,11 +50,15 @@ Durante la ejecución de los scripts de construcción, el sistema se provee con 
    sudo ./fix_inittab_correct.sh
    sudo ./set_password.sh
    ```
-5. **Genera la Imagen para VirtualBox o USB (Nuevo):**
+5. **Genera la Imagen para VirtualBox o USB:**
    ```bash
    sudo ./build_bootable_image.sh
    ```
-6. **Ejecuta la Máquina Virtual en QEMU:**
+6. **Flashea la Imagen a un USB Físico (Nuevo):**
+   ```bash
+   sudo ./flash_usb.sh
+   ```
+7. **Ejecuta la Máquina Virtual en QEMU (Alternativa local):**
    ```bash
    ./run_qemu.sh
    ```

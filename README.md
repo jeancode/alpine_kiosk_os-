@@ -32,6 +32,7 @@ Durante la ejecución de los scripts de construcción, el sistema se provee con 
 * **`set_password.sh`**: Configura la contraseña del administrador y bloquea las conexiones SSH vacías editando `/etc/ssh/sshd_config`.
 * **`update_banner.sh`**: Inyecta un colorido arte ASCII (Banner) en el archivo `/etc/motd` para darle una estética "Developer Edition" al momento de iniciar sesión.
 * **`run_qemu.sh`**: Un script de comodidad para encender la máquina virtual mapeando el puerto SSH al puerto `2222` de la máquina anfitriona.
+* **`build_bootable_image.sh`**: Transforma el entorno (que originalmente solo arranca en QEMU) en un disco crudo (`.img`) de 1.6GB con tabla de particiones MBR y gestor de arranque Syslinux, listo para VirtualBox o para flashear en un USB.
 
 ## Cómo Usarlo (Instrucciones de Construcción)
 
@@ -42,13 +43,17 @@ Durante la ejecución de los scripts de construcción, el sistema se provee con 
    chmod +x *.sh
    sudo ./create_alpine.sh
    ```
-4. **Aplica las Configuraciones:**
+4. **Aplica las Configuraciones (Opcional pero recomendado):**
    ```bash
    sudo ./update_banner.sh
    sudo ./fix_inittab_correct.sh
    sudo ./set_password.sh
    ```
-5. **Ejecuta la Máquina Virtual:**
+5. **Genera la Imagen para VirtualBox o USB (Nuevo):**
+   ```bash
+   sudo ./build_bootable_image.sh
+   ```
+6. **Ejecuta la Máquina Virtual en QEMU:**
    ```bash
    ./run_qemu.sh
    ```

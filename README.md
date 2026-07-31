@@ -58,4 +58,13 @@ Durante la ejecución de los scripts de construcción, el sistema se provee con 
    ./run_qemu.sh
    ```
 
+## Arquitectura de Diseño: ¿Por qué `.img` y no `.iso`?
+
+Es una duda común querer empaquetar el sistema en un archivo `.iso`. Sin embargo, hemos optado por generar un Disco Duro Crudo (`.img`) por dos razones técnicas vitales:
+
+1. **La Regla de Solo Lectura (Persistencia):** El formato `.iso` (ISO 9660) está diseñado por naturaleza para ser de **solo lectura**. Si compiláramos un `.iso`, cualquier archivo guardado, base de datos alterada o registro (log) escrito por el kiosco desaparecería al reiniciar. Un disco `.img` actúa como un pendrive real, ofreciendo **lectura y escritura permanente**.
+2. **El Riesgo del Initramfs:** Para arrancar desde un CD de solo lectura y permitir una falsa escritura en RAM (Live CD), el Kernel de Linux necesita un subsistema de rescate llamado `initramfs`. Puesto que en este proyecto el Kernel (`bzImage`) es personalizado, minimalista (8MB) y de arranque directo, obligarlo a leer un sistema de archivos ISO sin los controladores (drivers) y módulos adecuados (como `isofs` o `loop`) arriesgaría un colapso de arranque catastrófico (Kernel Panic). 
+
+El archivo `.img` provee la solución más elegante: se comporta idéntico a un Disco de Estado Sólido (SSD), retiene todos los datos tras un apagado, y cualquier PC o VirtualBox lo arranca nativamente mediante un MBR estándar.
+
 *(Por seguridad, la contraseña de root por defecto configurada por `set_password.sh` es `admin`)*

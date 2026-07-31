@@ -1,0 +1,14 @@
+# Ignore large binary OS images
+*.ext4
+bzImage
+out/
+
+# Ignore compiled C++ binaries
+sysmon2026
+sysmon2026_v2
+kiosk
+tests_seguridad
+*.o
+
+# Ignore WSL/Windows specific files
+*.exe
